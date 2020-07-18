@@ -1,18 +1,16 @@
-from flask import Flask
+from app import app, db, tasks
+from app.models import Player, Tournament
+from threading import Thread
 
-app = Flask(__name__)
-
-@app.route('/api/v1/players/get')
-def get_players():
-    return "Player"
-
-@app.route('/api/v1/tournaments/get')
-def get_tournaments():
-    return "Tournaments"
-
-@app.route('/api/v1/draws/get')
-def get_draw():
-    return "Draw"
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'Player': Player, 'Tournament': Tournament}
 
 if __name__ == "__main__":
+
+    # start background tasks
+    thread = Thread(target=tasks.threaded_task, args=(3600,))
+    thread.daemon = True
+    thread.start()
+
     app.run()

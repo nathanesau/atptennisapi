@@ -12,20 +12,31 @@ Flask API to provide read-only access to database.
 
 ## Examples
 
-Get players:
-
 ```bash
+# get players
 curl -i http://localhost:8080/api/v1/players/get
-```
 
-Get tournaments:
-
-```bash
+# get tournaments
 curl -i http://localhost:8080/api/v1/tournaments/get
+
+# get draw
+curl -i http://localhost:8080/api/v1/draws/get?tournament_name=Rotterdam2019
 ```
 
-Get draw:
+## Database Info
+
+The database has the following schema:
+
+![](https://raw.githubusercontent.com/nathanesau/fantasytennis/master/assets/images/atptennisschema.PNG)
+
+Here is a script which creates this schema:
+
+https://github.com/nathanesau/fantasytennis/blob/master/database/atptennisschema.sql
+
+## Unit Tests
+
+To run the unit tests use:
 
 ```bash
-curl -i http://localhost:8080/api/v1/draws/get?tournament_name=Rotterdam2019
+python3 -m unittest
 ```
